@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="ja">
+
+<head>
+  <th:block th:insert="~{common/head :: head}"></th:block>
+  <title>HTMX + Alpine.js サンプル</title>
+</head>
+
+<body>
+  <main>
+    <div class="container">
+      <div class="row min-vh-100 justify-content-center align-items-center">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-text">
+                <div class="row">
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-primary" hx-get="/content-a" hx-target="#modal-content"
+                      hx-trigger="click" data-bs-toggle="modal" data-bs-target="#modal">モーダルAを開く</button>
+                  </div>
+                  <div class="col-auto">
+                    <button type="button" class="btn btn-primary" hx-get="/content-b" hx-target="#modal-content"
+                      hx-trigger="click"
+                      hx-on:htmx:before-request="document.getElementById('modal-content').innerHTML = ''"
+                      data-bs-toggle="modal" data-bs-target="#modal">モーダルBを開く</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <th:block th:replace="~{common/modal :: modal}"></th:block>
+  </main>
+  <script>
+    document.body.addEventListener("htmx:responseError", (e) => {
+      console.error("HTMX error", e);
+    });
+  </script>
+</body>
+
+</html>

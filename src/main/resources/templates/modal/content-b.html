@@ -1,0 +1,55 @@
+<div class="modal-header">
+  <h5 class="modal-title">モーダルB</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <p>JavaScriptを書かずにtrを動的に追加するサンプル</p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <div class="card" x-data="{ items: [{name: ''}] }">
+          <div class="card-body">
+            <div class="card-title">
+              <button type="button" class="btn btn-success" @click="items.push({name: ''})">
+                <i class="bi bi-plus"></i>
+                追加
+              </button>
+            </div>
+            <div class="card-text">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>名前</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <template x-for="(item, i) in items" :key="i">
+                    <tr style="vertical-align: middle;">
+                      <td>
+                        <input type="text" class="form-control" x-model="item.name" placeholder="名前">
+                      </td>
+                      <td>
+                        <button type="button" class="btn btn-danger btn-sm" :class="{'disabled': items.length === 1}"
+                          @click="items.splice(i, 1)">
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </td>
+                    </tr>
+                  </template>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">閉じる</button>
+</div>
